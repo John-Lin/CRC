@@ -12,18 +12,18 @@ CRC Receiver need to determine the received codeword if the received codeword be
 The CRClib provided some features:
 
 * Sender side:
-    ** Random get dataword function.
-    ** Generate augmented dataword function.
-    ** Generate remainder function.
-    ** Generate codeword function.
+    * Random get dataword function.
+    * Generate augmented dataword function.
+    * Generate remainder function.
+    * Generate codeword function.
 
 * Receiver side:
-    ** Generate syndrome function.
-    ** To decide whether discart received dataword or not.
-    ** Get dataword back from codeword function.
+    * Generate syndrome function.
+    * To decide whether discart received dataword or not.
+    * Get dataword back from codeword function.
 
 * Unreliable Channel:
-    ** Generate random noise by input error rate parameter.
+    * Generate random noise by input error rate parameter.
 
 It also provided input customized dataword by using getinput function.
 
