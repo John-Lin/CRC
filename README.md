@@ -2,6 +2,8 @@
 
 Copyright © 2009 Che Wei Lin. All Rights Reserved.
 
+This Program is my study on the course named Communications Network.
+
 ## Description 
 
 This is the cyclic redundancy check (CRC) Simulate, if you don't know how it works take a look on Wikipedai Cyclic redundancy check. :)
@@ -12,7 +14,7 @@ CRC Receiver need to determine the received codeword if the received codeword be
 The CRClib provided some features:
 
 * Sender side:
-    * Random get dataword function.
+    * Get random dataword function.
     * Generate augmented dataword function.
     * Generate remainder function.
     * Generate codeword function.
@@ -41,5 +43,8 @@ Just click build button.
 
 The number of bit with augmented dataword only support 19 bits.
 
+## Contact
+
+email: ireri339@gmail.com
 
 
