@@ -21,8 +21,8 @@ int main(int argc, const char * argv[])
 	//byte dataword = 0xA; //binary 1010
     //byte divisor = 0xD;   //binary 1011
     
-    byte divisor = 0x13; //binary 1 0011
-    
+    //byte divisor = 0x13; //binary 1 0011
+    byte divisor = 0x123; //binary 1 0010 0011
 	//byte dataword;
     byte arg_dataword;
     byte remainder;
@@ -40,7 +40,11 @@ int main(int argc, const char * argv[])
 	//隨機取得dataword
     
     //byte dataword = 0x35B;
-	//dwdataword 11 0101 1011    
+	//dwdataword 11 0101 1011
+    
+//    cout<<"NOTE divisor is "<<dec2bin(divisor)<<endl;
+//	byte dataword = getinput();
+	//get input dataword
     
     add_bit = count_bit(dec2bin(divisor)) - 1;
 	//­計算需要加幾個位元

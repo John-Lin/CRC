@@ -23,6 +23,19 @@ byte dec2bin(byte n)
     return total;
 }
 
+byte bin2dec(byte n)
+{
+    byte total = 0;
+    byte m = 1;
+    
+	while(n!=0){
+		total = total + (n%10) * m;
+		n = n/10;
+		m = m*2;
+	}
+	return total;
+}
+
 int count_bit(byte binary)
 {
     int bit = 0;
@@ -97,18 +110,24 @@ byte getdataword(byte divisor)
 	byte dataword;
 	int div_bit;
 	int min;
+    int max;
     
 	//srand((unsigned int)time(NULL));
 	div_bit = count_bit(dec2bin(divisor));
-    
+    //cout<<"div_bit:"<<div_bit<<endl;
 	min = pow(2, div_bit) - 1;
-	//cout<<"min:"<<min<<endl;
+    max = pow(2, 19-(div_bit-1)) - 1;
+    
+    //cout<<"min:"<<min<<endl;
+	//cout<<"max:"<<max<<endl;
+    
 	//dataword = (rand()%105)+8;//8~(128-15) 15 for add noise
-	dataword = (rand()%32752)+min;//min ~ (32767-15) 15 for add noise signal
-	// min. depend on input divisor bits
+	dataword = (rand() % (max-min-15))+min;//min ~ (max-min-15) 15 for add noise signal
+	//max. & min. depend on input divisor bits
+    //15 for noise signal
 	
 	//dataword = 255;
-	//printf("%d\n", dataword); //DEBUG
+	//printf("%lld\n", dataword); //DEBUG
 	return dataword;
 }
 
@@ -118,6 +137,7 @@ byte enlargedataword(byte dataword, int add_bit)
     
     arg_dataword = dataword << add_bit;
     //往左位移放大
+    //cout<<"arg_dataword:"<<dec2bin(arg_dataword)<<endl;//arg_dataword DEBUG
 	return arg_dataword;
 }
 
@@ -142,7 +162,10 @@ byte generator(byte arg_dataword, byte divisor)
 	divisor <<= xor_times;
     //因與arg_dataword作XOR關係需要往左位移
     
-	tmp = arg_dataword ^ divisor;
+//    cout<<"arg_dataword:"<<dec2bin(arg_dataword)<<endl;//arg_dataword DEBUG
+//    cout<<"divisor:"<<dec2bin(divisor)<<endl;//divisor DEBUG
+	
+    tmp = arg_dataword ^ divisor;
     divisor >>= 1;
     //cout<<"tmp:"<<dec2bin(tmp)<<endl;
 	if (tmp == 0){
@@ -153,14 +176,16 @@ byte generator(byte arg_dataword, byte divisor)
     for(int i=0; i<xor_times; i++){
         //cout<<"tmp:"<<dec2bin(tmp)<<endl;
         // cout<<"tmp XOR divisor:"<<dec2bin(tmp ^ divisor)<<endl<<endl;
+        
         if ((tmp ^ divisor) > tmp) {
             divisor >>= 1;
             
         }else{
+            remainder = tmp;
+            //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
             tmp = tmp ^ divisor;
 			divisor >>= 1;
-			remainder = tmp;
-            //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
+			
             //cout<<"Remainder bit:"<<count_bit(dec2bin(remainder))<<endl;//remainder bit number DEBUG
         }
         //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
@@ -214,6 +239,7 @@ byte checker(byte codeword, byte divisor)
     for(int i=0; i<xor_times; i++){
 		//cout<<"tmp:"<<dec2bin(tmp)<<endl;
 		//cout<<"tmp XOR divisor:"<<dec2bin(tmp ^ divisor)<<endl<<endl;
+       
         if ((tmp ^ divisor) > tmp) {
             divisor >>= 1;
             
@@ -254,9 +280,9 @@ byte channel(byte codeword, double errorrate)
 	
 	if(random >= errorrate*100){
 		error = codeword;
-        printf("random:%lld\n", random);  //noise DEBUG
+        //printf("random:%lld\n", random);  //noise DEBUG
 	}else{
-        printf("noise add in random:%lld\n", random);  //noise DEBUG
+        //printf("noise add in random:%lld\n", random);  //noise DEBUG
 		if(random >= 50){
             noise = random;
             error = codeword + (noise%15);
@@ -296,4 +322,16 @@ void logging(bool status)
 			file<<"CRC Detection Fails, 0"<<endl;
 	}
 	file.close();
+}
+
+byte getinput()
+{
+	byte dataword;
+    
+	cout<<"Input the Dataword:";
+	cin>>dataword;
+	//cout<<bin2dec(dataword)<<endl;
+	dataword = bin2dec(dataword);
+    
+	return dataword;
 }

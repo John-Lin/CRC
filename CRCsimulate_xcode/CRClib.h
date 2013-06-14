@@ -19,8 +19,10 @@ typedef long long byte;
 
 //Decimal to Binary
 byte dec2bin(byte);
+//Binary to Decimal
+byte bin2dec(byte);
 
-//count the number of bit (only can detect 10 bits)
+//count the number of bit (only can detect 19 bits)
 int count_bit(byte);
 
 //Sender
@@ -40,5 +42,8 @@ byte channel(byte, double);
 //Statistics and logging
 bool comparedataword(byte, byte, byte);
 void logging(bool);
+
+//Input handler function
+byte getinput();
 
 #endif /* defined(__CRCsimulate_xcode__CRClib__) */
