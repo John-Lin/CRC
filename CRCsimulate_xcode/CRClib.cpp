@@ -125,9 +125,8 @@ byte getdataword(byte divisor)
 	//cout<<"max:"<<max<<endl;
     
 	//dataword = (rand()%105)+8;//8~(128-15) 15 for add noise
-	dataword = (rand() % (max-min-15))+min;//min ~ (max-min-15) 15 for add noise signal
+	dataword = (rand() % (max-min))+min;//min ~ (max-min)
 	//max. & min. depend on input divisor bits
-    //15 for noise signal
 	
 	//dataword = 255;
 	//printf("%lld\n", dataword); //DEBUG
@@ -269,7 +268,7 @@ byte decision(byte dataword, byte syndrome)
 	return dataword;
 }
 
-byte channel(byte codeword, double errorrate)
+byte channel(byte codeword, double errorrate=0.5)
 {
 	byte noise;
 	byte error;
@@ -278,22 +277,22 @@ byte channel(byte codeword, double errorrate)
 	cout<<endl<<"Through to the channel..."<<endl;
 	
     //srand((unsigned int)time(NULL));
-	//random = (100*((float)rand() / (float)(RAND_MAX+1)));
+	//random = (100*((float)rand() / (float)(RAND_MAX+1))) * -1;
     random = (rand()%100)+1;
-	
-	if(random >= errorrate*100){
+    //cout<<random<<endl;
+	noise = (rand()%codeword);
+    
+	if(random > errorrate*100 && random <= 100){
 		error = codeword;
-        //printf("random:%lld\n", random);  //noise DEBUG
-	}else{
-        //printf("noise add in random:%lld\n", random);  //noise DEBUG
-		if(random >= 50){
-            noise = random;
-            error = codeword + (noise%15);
-        }else{
-            noise = random;
-            error = codeword - (noise%15);
-        }
-	}
+    }
+    else if(random > (errorrate*100*0.5)  && random <= errorrate*100){
+        //cout<<"OR noise"<<endl;
+        error = codeword | noise;
+    }
+    else{
+        //cout<<"XOR noise"<<endl;
+        error = codeword ^ noise;
+    }
 	return error;
 }
 
