@@ -96,6 +96,9 @@ int count_bit(byte binary)
 	else if(binary <= th1*111111111 && binary >=th0*100000000){
         bit = 19;
     }
+    else if(binary <= 1 && binary >= 0){
+        bit = 1;
+    }
 	else{
 		printf("binary:%lli\n", binary);
 		cout<<"Only can support in 19 bits"<<endl;
@@ -290,7 +293,6 @@ byte channel(byte codeword, double errorrate)
             noise = random;
             error = codeword - (noise%15);
         }
-
 	}
 	return error;
 }
@@ -324,14 +326,17 @@ void logging(bool status)
 	file.close();
 }
 
-byte getinput()
+byte getinput(byte divisor)
 {
 	byte dataword;
-    
 	cout<<"Input the Dataword:";
 	cin>>dataword;
-	//cout<<bin2dec(dataword)<<endl;
-	dataword = bin2dec(dataword);
     
+	//cout<<bin2dec(dataword)<<endl;
+    if (count_bit(dec2bin(divisor)) > count_bit(dataword)){
+        cout<<"The number of dataword's bits is less than divisor's"<<endl;
+        exit(EXIT_SUCCESS);
+    }
+    dataword = bin2dec(dataword);
 	return dataword;
 }

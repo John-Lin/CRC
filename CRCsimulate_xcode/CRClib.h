@@ -44,6 +44,6 @@ bool comparedataword(byte, byte, byte);
 void logging(bool);
 
 //Input handler function
-byte getinput();
+byte getinput(byte);
 
 #endif /* defined(__CRCsimulate_xcode__CRClib__) */

@@ -42,8 +42,9 @@ int main(int argc, const char * argv[])
     //byte dataword = 0x35B;
 	//dwdataword 11 0101 1011
     
-//    cout<<"NOTE divisor is "<<dec2bin(divisor)<<endl;
-//	byte dataword = getinput();
+    //cout<<"NOTE divisor is "<<dec2bin(divisor)<<endl;
+    //byte dataword = getinput(divisor);
+    
 	//get input dataword
     
     add_bit = count_bit(dec2bin(divisor)) - 1;
