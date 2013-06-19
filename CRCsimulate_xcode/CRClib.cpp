@@ -94,7 +94,10 @@ int count_bit(byte binary)
 	else if(binary <= th1*111111111 && binary >=th0*100000000){
         bit = 19;
     }
-    else if(binary <= 1 && binary >= 0){
+    else if(binary <= th1*1111111111 && binary >=th0*1000000000){
+        bit = 20;
+    }
+    else if(binary <= 1 && binary == 0){
         bit = 1;
     }
 	else{

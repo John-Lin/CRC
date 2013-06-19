@@ -37,7 +37,7 @@ It also provided input customized dataword by using getinput function.
     #include "CRClib.h"
 
     using namespace std;
-    typedef long long byte;
+    typedef unsigned long long byte;
 
     int main(int argc, const char * argv[])
     {
@@ -92,7 +92,7 @@ Just click build button.
 
 ## NOTE
 
-The number of bit with augmented dataword only support 19 bits.
+The number of bit with augmented dataword only support 20 bits.
 
 ## Contact
 

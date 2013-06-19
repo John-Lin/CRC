@@ -15,7 +15,7 @@
 #include <fstream>
 #include <math.h>
 
-typedef long long byte;
+typedef unsigned long long byte;
 
 //Decimal to Binary
 byte dec2bin(byte);

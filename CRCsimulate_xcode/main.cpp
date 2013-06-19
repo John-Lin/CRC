@@ -8,7 +8,7 @@
 #include "CRClib.h"
 
 using namespace std;
-typedef long long byte;
+typedef unsigned long long byte;
 
 int main(int argc, const char * argv[])
 {
@@ -36,12 +36,12 @@ int main(int argc, const char * argv[])
     
 	bool status;
     
-	byte dataword = getdataword(divisor);
+	//byte dataword = getdataword(divisor);
 	//隨機取得dataword
     
     //byte dataword = 0x35B;
 	//dwdataword 11 0101 1011
-    
+    byte dataword = 0x800;
     //cout<<"NOTE divisor is "<<dec2bin(divisor)<<endl;
     //byte dataword = getinput(divisor);
     
