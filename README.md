@@ -32,8 +32,15 @@ The CRClib provided some features:
 
 It also provided input customized dataword by using getinput function.
 
-## CRC Example
-    
+## CRC detection simulate Example in main program
+
+#include "CRClib.h"
+
+using namespace std;
+typedef long long byte;
+
+int main(int argc, const char * argv[])
+{
     int add_bit;
     bool status;
     
@@ -48,6 +55,7 @@ It also provided input customized dataword by using getinput function.
     byte received;
     byte received_dataword;
 
+    //random number with time seed
     srand((unsigned int)time(NULL));
     
     //For Sender side
@@ -57,7 +65,7 @@ It also provided input customized dataword by using getinput function.
     remainder = generator(arg_dataword, divisor);
     codeword = getcodeword(dataword, remainder, add_bit);
 
-    //For Unreliable channel
+    //Throught to the Unreliable Channel with 0.5 error rate
     codeword = channel(codeword, 0.5);
 
     //For Receiver side
@@ -65,9 +73,12 @@ It also provided input customized dataword by using getinput function.
     received_dataword = narrowcodeword(codeword, add_bit);
     received = decision(received_dataword, syndrome);
 
-    //For logging & recognize CRC detection success or failure
+    //Recognize CRC detection success or failure and log it
     status = comparedataword(dataword, received, syndrome);
     logging(status);
+    
+    return 0;
+}
 
 
 ## How To build the application
