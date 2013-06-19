@@ -34,52 +34,51 @@ It also provided input customized dataword by using getinput function.
 
 ## CRC detection simulate Example in main program
 
-#include "CRClib.h"
+    #include "CRClib.h"
 
-using namespace std;
-typedef long long byte;
+    using namespace std;
+    typedef long long byte;
 
-int main(int argc, const char * argv[])
-{
-    int add_bit;
-    bool status;
-    
-    byte divisor = 0x123;
-    
-    byte dataword;
-    byte arg_dataword;
-    byte remainder;
-    byte codeword;
+    int main(int argc, const char * argv[])
+    {
+        int add_bit;
+        bool status;
+        
+        byte divisor = 0x123;
+        
+        byte dataword;
+        byte arg_dataword;
+        byte remainder;
+        byte codeword;
 
-    byte syndrome;
-    byte received;
-    byte received_dataword;
+        byte syndrome;
+        byte received;
+        byte received_dataword;
 
-    //random number with time seed
-    srand((unsigned int)time(NULL));
-    
-    //For Sender side
-    dataword = getdataword(divisor);
-    add_bit = count_bit(dec2bin(divisor)) - 1;
-    arg_dataword = enlargedataword(dataword, add_bit);
-    remainder = generator(arg_dataword, divisor);
-    codeword = getcodeword(dataword, remainder, add_bit);
+        //random number with time seed
+        srand((unsigned int)time(NULL));
+        
+        //For Sender side
+        dataword = getdataword(divisor);
+        add_bit = count_bit(dec2bin(divisor)) - 1;
+        arg_dataword = enlargedataword(dataword, add_bit);
+        remainder = generator(arg_dataword, divisor);
+        codeword = getcodeword(dataword, remainder, add_bit);
 
-    //Throught to the Unreliable Channel with 0.5 error rate
-    codeword = channel(codeword, 0.5);
+        //Throught to the Unreliable Channel with 0.5 error rate
+        codeword = channel(codeword, 0.5);
 
-    //For Receiver side
-    syndrome = checker(codeword, divisor);
-    received_dataword = narrowcodeword(codeword, add_bit);
-    received = decision(received_dataword, syndrome);
+        //For Receiver side
+        syndrome = checker(codeword, divisor);
+        received_dataword = narrowcodeword(codeword, add_bit);
+        received = decision(received_dataword, syndrome);
 
-    //Recognize CRC detection success or failure and log it
-    status = comparedataword(dataword, received, syndrome);
-    logging(status);
-    
-    return 0;
-}
+        //Recognize CRC detection success or failure and log it
+        status = comparedataword(dataword, received, syndrome);
+        logging(status);
 
+        return 0;
+    }
 
 ## How To build the application
 
