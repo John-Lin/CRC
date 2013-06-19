@@ -32,6 +32,44 @@ The CRClib provided some features:
 
 It also provided input customized dataword by using getinput function.
 
+## CRC Example
+    
+    int add_bit;
+    bool status;
+    
+    byte divisor = 0x123;
+    
+    byte dataword;
+    byte arg_dataword;
+    byte remainder;
+    byte codeword;
+
+    byte syndrome;
+    byte received;
+    byte received_dataword;
+
+    srand((unsigned int)time(NULL));
+    
+    //For Sender side
+    dataword = getdataword(divisor);
+    add_bit = count_bit(dec2bin(divisor)) - 1;
+    arg_dataword = enlargedataword(dataword, add_bit);
+    remainder = generator(arg_dataword, divisor);
+    codeword = getcodeword(dataword, remainder, add_bit);
+
+    //For Unreliable channel
+    codeword = channel(codeword, 0.5);
+
+    //For Receiver side
+    syndrome = checker(codeword, divisor);
+    received_dataword = narrowcodeword(codeword, add_bit);
+    received = decision(received_dataword, syndrome);
+
+    //For logging & recognize CRC detection success or failure
+    status = comparedataword(dataword, received, syndrome);
+    logging(status);
+
+
 ## How To build the application
 
 Because this project is the Xcode project, you need...
