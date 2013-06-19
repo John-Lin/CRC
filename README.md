@@ -27,6 +27,9 @@ The CRClib provided some features:
 * Unreliable Channel:
     * Generate random noise by input error rate parameter.
 
+* logging:
+    * logging CRC detect success or failure.
+
 It also provided input customized dataword by using getinput function.
 
 ## How To build the application

@@ -14,7 +14,6 @@ byte dec2bin(byte n)
 {
     byte total = 0;
     byte m = 1;
-    //cout<<"n"<<n<<endl;
     while(n!=0){
         total = total + (n%2) * m;
         n = n / 2;
@@ -27,7 +26,6 @@ byte bin2dec(byte n)
 {
     byte total = 0;
     byte m = 1;
-    
 	while(n!=0){
 		total = total + (n%10) * m;
 		n = n/10;
@@ -127,8 +125,7 @@ byte getdataword(byte divisor)
 	//dataword = (rand()%105)+8;//8~(128-15) 15 for add noise
 	dataword = (rand() % (max-min))+min;//min ~ (max-min)
 	//max. & min. depend on input divisor bits
-	
-	//dataword = 255;
+    
 	//printf("%lld\n", dataword); //DEBUG
 	return dataword;
 }
@@ -176,21 +173,14 @@ byte generator(byte arg_dataword, byte divisor)
 	}
     
     for(int i=0; i<xor_times; i++){
-        //cout<<"tmp:"<<dec2bin(tmp)<<endl;
-        // cout<<"tmp XOR divisor:"<<dec2bin(tmp ^ divisor)<<endl<<endl;
-        
         if ((tmp ^ divisor) > tmp) {
             divisor >>= 1;
-            
         }else{
             remainder = tmp;
             //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
             tmp = tmp ^ divisor;
 			divisor >>= 1;
-			
-            //cout<<"Remainder bit:"<<count_bit(dec2bin(remainder))<<endl;//remainder bit number DEBUG
         }
-        //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
     }
 	remainder = tmp;
     //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
@@ -239,9 +229,6 @@ byte checker(byte codeword, byte divisor)
 	}
     
     for(int i=0; i<xor_times; i++){
-		//cout<<"tmp:"<<dec2bin(tmp)<<endl;
-		//cout<<"tmp XOR divisor:"<<dec2bin(tmp ^ divisor)<<endl<<endl;
-       
         if ((tmp ^ divisor) > tmp) {
             divisor >>= 1;
             
@@ -250,9 +237,7 @@ byte checker(byte codeword, byte divisor)
 			divisor >>= 1;
 			syndrome = tmp;
             //cout<<"syndrome:"<<dec2bin(syndrome)<<endl;//remainder DEBUG
-            //cout<<"Remainder bit:"<<count_bit(dec2bin(remainder))<<endl;//remainder bit number DEBUG
         }
-        //cout<<"Remainder:"<<dec2bin(remainder)<<endl;//remainder DEBUG
     }
 	syndrome = tmp;
 	return syndrome;
@@ -275,8 +260,7 @@ byte channel(byte codeword, double errorrate=0.5)
 	byte random;
 	
 	cout<<endl<<"Through to the channel..."<<endl;
-	
-    //srand((unsigned int)time(NULL));
+    
 	//random = (100*((float)rand() / (float)(RAND_MAX+1))) * -1;
     random = (rand()%100)+1;
     //cout<<random<<endl;

@@ -12,7 +12,7 @@ typedef long long byte;
 
 int main(int argc, const char * argv[])
 {
-    srand((unsigned int)time(NULL));
+    srand((unsigned int)time(NULL));//random seed
     //byte dataword = 0x9; //binary 1001
 	//byte divisor = 0xB;   //binary 1011
 	
